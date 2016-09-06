@@ -1,0 +1,11 @@
+//@module=chat,StartIndex=1001,classname=Chat
+syntax = "proto3";
+option java_package = "com.thecodeway.opengate.message";
+
+
+message CGChat
+{
+	int32		agentid						= 1;
+	string	content						= 2;
+}
+

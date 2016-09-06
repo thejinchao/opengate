@@ -1,0 +1,50 @@
+//@module=Config,StartIndex=101,classname=Gate
+syntax = "proto3";
+option java_package = "com.thecodeway.opengate.message";
+
+//Client->Gate->Server
+message CGHandshake
+{
+	uint32		version = 1;
+	uint64		dhkey_low = 2;		//dhkey用于密钥协商
+	uint64		dhkey_high = 3;
+
+	uint32		agent_id = 4;			//agent_id和token用于断线重连
+	uint64		token = 5;
+}
+
+//Server->Gate->Client
+message GCHandshake
+{
+	uint32		result = 1;			//0: OK 
+																		//1: 版本错误
+																		//2: 服务器尚未启动
+	uint64		dhkey_low = 2;
+	uint64		dhkey_high = 3;
+	
+	uint32		agent_id = 4;
+}
+
+//Client和Gate之间的心跳消息
+message GateHeartbeat
+{
+	uint64		time = 1;
+}
+
+//Gate连接Server之后，Server发给Gate的消息
+message GateConnected
+{
+	uint32		version = 1;
+}
+
+//Client断线之后，Gate发送给Server的消息
+message GateAgentLeave
+{
+	uint32		agent_id = 1;
+}
+
+//Server需要踢掉某个客户端时，Server发送给Gate的消息
+message GateKickoffAgent
+{
+	uint32		agent_id = 1;
+}
