@@ -8,7 +8,7 @@ cmake_minimum_required (VERSION 2.6)
 #generate protobuf files
 ########
 
-set(PROTO_FILES_PATH "$ENV{PROTO_FILES_PATH}")
+set(PROTO_FILES_PATH "$ENV{PROTO_FILES_PATH}" CACHE STRING "Protobuf Files Path")
 execute_process(COMMAND "python"
 		ID_Generator.py
 	  WORKING_DIRECTORY ${PROTO_FILES_PATH}	)
